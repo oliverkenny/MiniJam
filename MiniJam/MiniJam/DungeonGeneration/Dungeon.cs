@@ -65,7 +65,7 @@ namespace MiniJam.DungeonGeneration
         }
 
         public void Render(SpriteBatch sb) {
-            sb.Draw()
+			sb.Draw()
         }
     }
 

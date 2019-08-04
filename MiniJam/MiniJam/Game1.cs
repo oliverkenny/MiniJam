@@ -4,14 +4,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MiniJam
 {
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
-    public class Game1 : Game
+	/// <summary>
+	/// This is the main type for your game.
+	/// </summary>
+	public class Game1 : Game
     {
-
-	// Added by oliver, edited by marcello, and Nath hwekfbakuefbakeubfkubfae
-        GraphicsDeviceManager graphics;
+		GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         
         public Game1()
