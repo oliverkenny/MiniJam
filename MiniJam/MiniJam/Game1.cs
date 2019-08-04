@@ -9,6 +9,8 @@ namespace MiniJam
     /// </summary>
     public class Game1 : Game
     {
+
+	// Added by oliver
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         
