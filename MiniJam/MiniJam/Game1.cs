@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MiniJam.DungeonGeneration;
 
 namespace MiniJam
 {
@@ -13,11 +14,15 @@ namespace MiniJam
 	// Added by oliver, edited by marcello, and Nath hwekfbakuefbakeubfkubfae
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
+
+        Dungeon d;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.PreferredBackBufferWidth = 636;
+            graphics.PreferredBackBufferHeight = 636;
         }
 
         /// <summary>
@@ -29,6 +34,8 @@ namespace MiniJam
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            TextureLoader l = new TextureLoader(Content);
+            d = new Dungeon(20, 20, l);
 
             base.Initialize();
         }
@@ -78,7 +85,9 @@ namespace MiniJam
             GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+            d.Draw(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
