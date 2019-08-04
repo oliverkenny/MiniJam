@@ -14,11 +14,17 @@ namespace MiniJam.DungeonGeneration
         public DungeonTile[,] TileMap;
         private int width, height;
 
+        private List<Room> Rooms = new List<Room>();
+
+        private TextureLoader TexLoad;
+
         public static int TILE_SIZE = 32;
 
         public Dungeon(int _width, int _height, TextureLoader texLoad) {
             width = _width;
             height = _height;
+
+            TexLoad = texLoad;
 
             TileMap = new DungeonTile[width, height];
 
@@ -26,13 +32,48 @@ namespace MiniJam.DungeonGeneration
                 for (int y = 0; y < height; y++) {
                     if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
                     {
-                        TileMap[x, y] = new DungeonTile(TileType.WALL, texLoad.TileTextures[TileType.WALL], x, y);
+                        TileMap[x, y] = new DungeonTile(TileType.WALL, TexLoad.TileTextures[TileType.WALL], x, y);
                     }
                     else {
-                        TileMap[x, y] = new DungeonTile(TileType.GROUND, texLoad.TileTextures[TileType.GROUND], x, y);
+                        TileMap[x, y] = new DungeonTile(TileType.GROUND, TexLoad.TileTextures[TileType.GROUND], x, y);
                     }
                 }
             }
+
+            //var numSplits = 2;
+            //Random r = new Random();
+
+            //for (int i = 0; i < numSplits; i++)
+            //{
+            //    var horizontal = i % 2 == 0;
+            //    if (horizontal)
+            //    {
+            //        var zoneLine = r.Next();
+            //    }
+            //    else
+            //    {
+
+            //    }
+            //}
+        }
+
+        public void ClearRoom(int x, int y, int w, int h) {
+            for (int dx = x; dx < x + w; dx++) {
+                for (int dy = y; dy < y + h; dy++) {
+                    TileMap[dx, dy] = new DungeonTile(TileType.GROUND, TexLoad.TileTextures[TileType.GROUND], dx, dy);
+                }
+            }
+        }
+
+        public bool IsClear(int x, int y, int w, int h) {
+            for (int dx = x; dx < x + w; dx++) {
+                for (int dy = y; dy < y + h; dy++) {
+                    if (TileMap[dx, dy].PassableTerrain == true) {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         public void Draw(SpriteBatch sb) {
@@ -41,6 +82,30 @@ namespace MiniJam.DungeonGeneration
                     TileMap[x, y].Render(sb);
                 }
             }
+        }
+    }
+
+    public class Room {
+        public Rectangle rect { get; set; }
+        public bool IsCorridor { get; set; }
+
+        public Room(int x, int y, int w, int h, bool isCorridor) {
+            rect = new Rectangle(x, y, w, h);
+            IsCorridor = isCorridor;
+        }
+    }
+
+    public class Rectangle {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int W { get; set; }
+        public int H { get; set; }
+
+        public Rectangle(int x, int y, int w, int h) {
+            X = x;
+            Y = y;
+            W = w;
+            H = h;
         }
     }
 
