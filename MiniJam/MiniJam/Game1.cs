@@ -10,7 +10,7 @@ namespace MiniJam
     public class Game1 : Game
     {
 
-	// Added by oliver
+	// Added by oliver, edited by marcello
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         
